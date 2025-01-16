@@ -394,6 +394,7 @@
         });
     </script>
     <!--project-->
+   
     <script>
         let currentSlideIndex = 0;
 
@@ -410,39 +411,43 @@
         }
 
 
-        function showProjectDetails(title, description, imageName) {
-            const modal = document.getElementById("projectDetailsModal");
-            const modalTitle = document.getElementById("projectModalTitle");
-            const modalDescription = document.getElementById("projectModalDescription");
-            const modalImage = document.getElementById("projectModalImage");
+  function showProjectDetails(title, description, imageName) {
+    const modal = document.getElementById("projectDetailsModal");
+    const modalTitle = document.getElementById("projectModalTitle");
+    const modalDescription = document.getElementById("projectModalDescription");
+    const modalImage = document.getElementById("projectModalImage");
 
-            // پر کردن اطلاعات مودال
-            modalTitle.textContent = title;
-            modalDescription.innerHTML = description; // استفاده از innerHTML برای متن‌های قالب‌بندی‌شده
-            modalImage.src = imageName;
+    // پر کردن اطلاعات مودال
+    modalTitle.textContent = title;
+    modalDescription.innerHTML = description; // استفاده از innerHTML برای متن‌های قالب‌بندی‌شده
+    modalImage.src = imageName;
 
-            // نمایش مودال
-            modal.style.display = "block";
+    // نمایش مودال
+    modal.style.display = "block";
+      document.body.setAttribute('aria-hidden', 'true');  // این گام ممکن است لازم نباشد، به کاربرد شما بستگی دارد
+    modal.querySelector('button').focus();
+    // انتقال تمرکز به مودال
+    modal.setAttribute("aria-hidden", "false");
+    modal.focus();
 
-            // انتقال تمرکز به مودال
-            modal.setAttribute("aria-hidden", "false");
-            modal.focus();
-        }
+}
 
-        function closeProjectModal() {
-            const modal = document.getElementById("projectDetailsModal");
+function closeProjectModal() {
+    const modal = document.getElementById("projectDetailsModal");
 
-            // بستن مودال
-            modal.style.display = "none";
+    // بستن مودال
+    modal.style.display = "none";
 
-            // بازگرداندن تمرکز به عنصر قبلی
-            modal.setAttribute("aria-hidden", "true");
-        }
+    // بازگرداندن تمرکز به عنصر قبلی
+    modal.setAttribute("aria-hidden", "true");
+}
+
 
 
 
 
     </script>
+   
     <!--Gallery-->
         <script>
             function openGalleryModal(index) {
@@ -494,6 +499,7 @@
         // اکسپورت توابع به پنجره
         window.openGalleryModal = openGalleryModal;
         window.changeGalleryImage = changeGalleryImage;
+
     });
 </script>
 

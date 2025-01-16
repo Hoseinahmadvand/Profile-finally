@@ -248,8 +248,9 @@
     <script src="~/Admin/assets/js/todolist.js"></script>
     <script src="~/Admin/assets/js/dashboard.js"></script>
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>@* 
+    <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script> *@
+    <script src="~/ckeditor/ckeditor.js"></script>
     <script>
         const editorConfig = {
             removePlugins: 'uploadimage,uploadfile,about',
@@ -270,15 +271,17 @@
             removeButtons: 'Image,Anchor,Flash,PageBreak',
             autoGrow_minHeight: 200, // تنظیم ارتفاع خودکار
             autoGrow_maxHeight: 600,
-            height: 300, // ارتفاع ثابت اولیه
+            height: 300, // ارتفاع ثابت اولیهإ
             resize_enabled: true, 
             placeholder: 'Start typing here...'
+
         };
 
-        CKEDITOR.replace('FarsiDescription');
-        CKEDITOR.replace('ArabicDescription');
-        CKEDITOR.replace('GermanDescription');
         CKEDITOR.replace('Description', editorConfig);
+        CKEDITOR.replace('FarsiDescription',{  filebrowserUploadUrl: '/Admin/AboutUss/Edit?handler=UploadImage',filebrowserUploadMethod: 'form'});
+        CKEDITOR.replace('ArabicDescription',{  filebrowserUploadUrl: '/Admin/AboutUss/Edit?handler=UploadImage',filebrowserUploadMethod: 'form'});
+        CKEDITOR.replace('GermanDescription',{  filebrowserUploadUrl: '/Admin/AboutUss/Edit?handler=UploadImage',filebrowserUploadMethod: 'form'});
+       
 
 
     </script>

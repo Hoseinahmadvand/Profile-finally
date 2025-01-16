@@ -1,10 +1,10 @@
-// Pages/Admin/AboutUs/Edit.cshtml.cs
+﻿// Pages/Admin/AboutUs/Edit.cshtml.cs
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Profile.Models.AboutUsAgg;
 using Profile.Services.Interfaces;
-
+using Newtonsoft.Json;
 namespace Profile.Pages.Admin.AboutUss
 {
     [Authorize(Roles = "Admin")]
@@ -103,5 +103,44 @@ namespace Profile.Pages.Admin.AboutUss
                 return RedirectToPage("./Index");
             }
         }
+
+
+       
+        public IActionResult OnPostUploadImage(IFormFile upload)
+        {
+            if (upload != null && upload.Length > 0)
+            {
+                // مسیر ذخیره فایل
+                var filePath = Path.Combine("wwwroot/uploads", upload.FileName);
+
+                // ذخیره فایل روی سرور
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    upload.CopyTo(stream);
+                }
+
+                // آدرس فایل آپلود شده
+                var url = $"/uploads/{upload.FileName}";
+
+                // بازگرداندن نتیجه به صورت JSON
+                return new JsonResult(new
+                {
+                    uploaded = true,
+                    url = url
+                });
+            }
+
+            // بازگرداندن خطا در صورت شکست آپلود
+            return new JsonResult(new
+            {
+                uploaded = false,
+                error = new { message = "File upload failed." }
+            });
+        }
+
+
+
     }
+
+
 }

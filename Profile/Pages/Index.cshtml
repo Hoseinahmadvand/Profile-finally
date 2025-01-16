@@ -64,7 +64,7 @@
             <!-- کاروسل پروژه‌ها -->
             <div id="projectsCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    @for (int i = 0; i < Model.Projects.Count; i += 3)
+                    @for (int i = 0; i < Model.Projects.Count; i += 4)
                     {
                         <!-- گروه پروژه‌ها -->
                         <div class="carousel-item @(i == 0 ? "active" : "")">
@@ -83,7 +83,7 @@
                                     </div>
 
                                     <!-- مودال مربوط به پروژه -->
-                                    <div class="modal fade" id="modal-@project.Id" tabindex="-1" aria-labelledby="modalLabel-@project.Id" aria-hidden="true" >
+                                    <div class="modal fade" id="modal-@project.Id" tabindex="-1" aria-labelledby="modalLabel-@project.Id" aria-hidden="true"  >
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header" dir="ltr">
@@ -117,6 +117,7 @@
             </div>
         </section>
     </section>
+
 }
 
 
@@ -245,7 +246,7 @@
     }
 </section>
 
-
+<br />
 
 @if (Model.siteSettings.ShowContactUs)
 {
