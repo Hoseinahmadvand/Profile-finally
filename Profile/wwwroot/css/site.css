@@ -1,0 +1,415 @@
+﻿
+@font-face {
+    font-family: 'BBCNasim';
+    src: url('/fonts/bbc.ttf') format('truetype'), url('/fonts/bbc.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BBCNasimBold';
+    src: url('/fonts/bbcnasim-bold.ttf') format('truetype'); /* اگر نسخه بولد دارید */
+    font-weight: bold;
+    font-style: normal;
+}
+
+
+/* Load Fonts */
+@font-face {
+    font-family: 'BBCNassim';
+    src: url('/fonts/BBCNassim.woff2') format('woff2'), url('/fonts/BBCNassim.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+/* Apply Fonts Globally */
+* {
+    font-family: 'BBCNasim', sans-serif;
+}
+
+
+
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1d1d1f;
+    background-color: #f5f5f7;
+    margin: 0;
+}
+
+/* Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 20px 30px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar .nav-link {
+    margin-left: 20px;
+    color: #333;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+    .navbar .nav-link:hover {
+        color: #0071e3;
+    }
+
+/* Hero Section */
+.hero-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('/path/to/hero-background.jpg') no-repeat center center;
+    background-size: cover;
+    text-align: center;
+    color: #fff;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    margin: 20px 0;
+}
+
+.cta-button {
+    background-color: #0071e3;
+    color: #fff;
+    padding: 10px 30px;
+    border-radius: 22px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: background-color 0.3s;
+}
+
+    .cta-button:hover {
+        background-color: #005bb5;
+    }
+
+/* Carousel Section */
+.slider-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    overflow: hidden;
+}
+
+.slider-item {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    transition: opacity 1s ease-in-out;
+}
+
+.slider-text {
+    color: #fff;
+    font-size: 3em;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    margin-bottom: 20px;
+}
+
+/* Projects Section */
+.projects-section {
+    background-color: #f5f5f7;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.project-card {
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+
+.project-description {
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover .project-description {
+    opacity: 1;
+}
+    /* About Us Section */
+    .about-us-section {
+    padding: 60px 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+    .about-us-section h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+/* Skills Section */
+/*.skills-section {
+    background-color: #f5f5f7;
+    padding: 60px 20px;
+    text-align: center;
+}*/
+
+/*.progress-bar {
+    height: 20px;
+    background-color: #0071e3;
+    border-radius: 10px;
+}*/
+
+/* Gallery Section */
+.gallery-section {
+    background-color: #fff;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.gallery-img {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+    .gallery-img:hover {
+        transform: scale(1.05);
+    }
+
+/* Footer */
+footer {
+    background-color: #f5f5f7;
+    color: #8e8e93;
+    padding: 40px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* استایل فرم تماس */
+.contact-form .form-control {
+    background-color: #2c2c2e;
+    color: #ffffff;
+    border: none;
+    padding-left: 40px; /* فاصله بیشتر برای جای آیکون */
+    border-radius: 8px;
+    height: 45px;
+}
+
+    .contact-form .form-control::placeholder {
+        color: #bbbbbb; /* رنگ placeholder روشن‌تر */
+        opacity: 1;
+    }
+
+/* استایل آیکون‌ها */
+.contact-form .icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    font-size: 1.2rem;
+}
+
+/* استایل دکمه ارسال */
+.submit-button {
+    background-color: #6a1b9a;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+    .submit-button:hover {
+        background-color: #5a1482;
+    }
+
+/* استایل بخش اطلاعات تماس */
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.info-item {
+    background-color: #2c2c2e;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 250px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+    .info-item:hover {
+        transform: translateY(-5px);
+    }
+
+.contact-info a.text-info {
+    color: #0071e3;
+    text-decoration: none;
+}
+
+    .contact-info a.text-info:hover {
+        color: #005bb5;
+    }
+
+/* Container برای منوی سفارشی */
+.custom-select-container {
+    position: relative;
+    display: inline-block;
+    width: auto;
+}
+
+/* ظاهر زبان انتخاب‌شده */
+.custom-select-toggle {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* منوی گزینه‌ها */
+.custom-select-options {
+    display: none;
+    position: absolute;
+    background-color: transparent; /* پس‌زمینه شفاف */
+    margin-top: 10px;
+    border: none;
+    width: auto;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 100;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* سایه برای نمایش تمایز */
+}
+
+/* هر گزینه */
+.custom-select-option {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 5px 10px;
+    background: none;
+    border: none;
+    text-align: left;
+    color: #333;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+    .custom-select-option:hover {
+        background-color: #f0f0f0;
+        border-radius: 4px;
+    }
+
+/* استایل پرچم */
+.flag-icon {
+    width: 30px;
+    height: auto;
+    margin-right: 8px;
+    border-radius: 3px;
+}
+.fullscreen-video {
+    height: 100vh;
+    width: 100vw;
+    object-fit: cover;
+}
+
+
+.circular-chart {
+    animation: fadeIn 1s ease-in-out;
+}
+
+.circular-chart .circle {
+    transform: rotate(-90deg);
+    transform-origin: center;
+    animation: progressAnim 2s ease-in-out forwards;
+}
+
+@keyframes progressAnim {
+    from {
+        stroke-dasharray: 0, 100;
+    }
+
+    to {
+        stroke-dasharray: var(--dasharray), 100;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.circular-chart:hover .circle {
+    stroke-width: 4;
+}
+
+.skill-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #444;
+    margin-top: 15px;
+}
+
+.skill-container {
+    margin: 20px 0;
+    transition: transform 0.3s ease-in-out;
+}
+
+    .skill-container:hover {
+        transform: scale(1.1);
+    }
+
+
+
+
+
+
+
+
+
+

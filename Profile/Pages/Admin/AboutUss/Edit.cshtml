@@ -1,0 +1,102 @@
+﻿@page
+
+@model EditModel
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Edit About Us";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card bg-dark text-light shadow-lg">
+        <div class="card-header text-center border-0">
+            <h3 class="fw-bold">Edit About Us</h3>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div class="form-group mb-4">
+                    <label class="form-label">Founded Date</label>
+                    <input asp-for="Founded" class="form-control" type="date" />
+                </div>
+
+                <fieldset class="mb-4">
+                    <legend class="fw-bold">Farsi</legend>
+                    <div class="form-group mb-3">
+                        <label class="form-label">Title (FA)</label>
+                        <input asp-for="FarsiTitle" class="form-control" /> 
+                        <div class="form-group">
+                            <label class="form-label">Description (FA)</label>
+                            <textarea asp-for="FarsiDescription" class="form-control" id="FarsiDescription"></textarea>
+                        </div>
+                    </div>
+                    
+                </fieldset>
+
+                <fieldset class="mb-4">
+                    <legend class="fw-bold">Arabic</legend>
+                    <div class="form-group mb-3">
+                        <label class="form-label">Title (AR)</label>
+                        <input asp-for="ArabicTitle" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Description (AR)</label>
+                        <textarea asp-for="ArabicDescription" class="form-control" id="ArabicDescription"></textarea>
+                    </div>
+                </fieldset>
+
+                <fieldset class="mb-4">
+                    <legend class="fw-bold">Germany</legend>
+                    <div class="form-group mb-3">
+                        <label class="form-label">Title (DE)</label>
+                        <input asp-for="GermanTitle" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Description (DE)</label>
+                        <textarea asp-for="GermanDescription" class="form-control" id="GermanDescription"></textarea>
+                    </div>
+                </fieldset>
+               
+               
+               
+
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-outline-light btn-lg shadow-sm">
+                        <i class="bi bi-save me-2"></i>Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #121212;
+        color: #ffffff;
+    }
+    .card {
+        border-radius: 15px;
+    }
+    .card-header {
+        background-color: #343a40;
+        border-bottom: 2px solid #495057;
+    }
+    .form-label {
+        font-weight: bold;
+    }
+    .btn-outline-light {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .btn-outline-light:hover {
+        background-color: #ffffff;
+        color: #121212;
+    }
+
+    .cke {
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+
+</style>
+
+

@@ -1,0 +1,157 @@
+﻿@page
+@model SettingsModel
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Site Settings";
+}
+
+<div class="container mt-5">
+    <div class="col-md-10 mx-auto grid-margin stretch-card">
+        <div class="card shadow-lg border-0">
+            <div class="card-body">
+                <h3 class="card-title text-center fw-bold mb-4">Site Settings</h3>
+                <form method="post" enctype="multipart/form-data">
+
+                    <!-- Site Titles -->
+                    <div class="form-group mb-3">
+                        <label asp-for="@Model.SiteSettings.TitleSiteFa" class="form-label">Site Title (Persian)</label>
+                        <input asp-for="@Model.SiteSettings.TitleSiteFa" class="form-control" type="text" placeholder="Enter Persian site title" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="@Model.SiteSettings.TitleSiteAr" class="form-label">Site Title (Arabic)</label>
+                        <input asp-for="@Model.SiteSettings.TitleSiteAr" class="form-control" type="text" placeholder="Enter Arabic site title" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="@Model.SiteSettings.TitleSiteDe" class="form-label">Site Title (German)</label>
+                        <input asp-for="@Model.SiteSettings.TitleSiteDe" class="form-control" type="text" placeholder="Enter German site title" />
+                    </div>
+
+
+                    <!-- Section Visibility Toggles -->
+                    <div class="container mb-5">
+                        <div class="row g-4">
+                            <!-- Persian Section -->
+                            <div class="card col-md-4 shadow-lg">
+                                <div class="card-header bg-dark text-light">
+                                    <h5 class="fw-bold mb-0">Section Visibility - Persian</h5>
+                                </div>
+                                <div class="card-body">
+                                    @* Persian Toggles *@
+                                    <div class="form-check form-switch d-flex align-items-center mb-3">
+                                        <input asp-for="@Model.SiteSettings.ShowSkillsFa" class="form-check-input me-3" type="checkbox" />
+                                        <label asp-for="@Model.SiteSettings.ShowSkillsFa" class="form-check-label">Show Skills Section</label>
+                                    </div>
+                                    <div class="form-check form-switch d-flex align-items-center mb-3">
+                                        <input asp-for="@Model.SiteSettings.ShowProjectsFa" class="form-check-input me-3" type="checkbox" />
+                                        <label asp-for="@Model.SiteSettings.ShowProjectsFa" class="form-check-label">Show Projects Section</label>
+                                    </div>
+                                    <div class="form-check form-switch d-flex align-items-center mb-3">
+                                        <input asp-for="@Model.SiteSettings.ShowGalleryFa" class="form-check-input me-3" type="checkbox" />
+                                        <label asp-for="@Model.SiteSettings.ShowGalleryFa" class="form-check-label">Show Gallery Section</label>
+                                    </div>
+                                    <div class="form-check form-switch d-flex align-items-center">
+                                        <input asp-for="@Model.SiteSettings.ShowContactUsFa" class="form-check-input me-3" type="checkbox" />
+                                        <label asp-for="@Model.SiteSettings.ShowContactUsFa" class="form-check-label">Show Contact Us Section</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Arabic Section -->
+                            <div class="card col-md-4 shadow-lg">
+                                <div class="card-header bg-dark text-light">
+                                    <h5 class="fw-bold mb-0">Section Visibility - Arabic</h5>
+                                </div>
+                                <div class="card-body">
+                                    @* Arabic Toggles *@
+                                    <div class="form-check form-switch d-flex align-items-center mb-3">
+                                        <input asp-for="@Model.SiteSettings.ShowSkillsAr" class="form-check-input me-3" type="checkbox" />
+                                        <label asp-for="@Model.SiteSettings.ShowSkillsAr" class="form-check-label">Show Skills Section</label>
+                                    </div>
+                                    <div class="form-check form-switch d-flex align-items-center mb-3">
+                                        <input asp-for="@Model.SiteSettings.ShowProjectsAr" class="form-check-input me-3" type="checkbox" />
+                                        <label asp-for="@Model.SiteSettings.ShowProjectsAr" class="form-check-label">Show Projects Section</label>
+                                    </div>
+                                    <div class="form-check form-switch d-flex align-items-center mb-3">
+                                        <input asp-for="@Model.SiteSettings.ShowGalleryAr" class="form-check-input me-3" type="checkbox" />
+                                        <label asp-for="@Model.SiteSettings.ShowGalleryAr" class="form-check-label">Show Gallery Section</label>
+                                    </div>
+                                    <div class="form-check form-switch d-flex align-items-center">
+                                        <input asp-for="@Model.SiteSettings.ShowContactUsAr" class="form-check-input me-3" type="checkbox" />
+                                        <label asp-for="@Model.SiteSettings.ShowContactUsAr" class="form-check-label">Show Contact Us Section</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- German Section -->
+                            <div class="card col-md-4 shadow-lg">
+                                <div class="card-header bg-dark text-light">
+                                    <h5 class="fw-bold mb-0">Section Visibility - German</h5>
+                                </div>
+                                <div class="card-body">
+                                    @* German Toggles *@
+                                    <div class="form-check form-switch d-flex align-items-center mb-3">
+                                        <input asp-for="@Model.SiteSettings.ShowSkillsDe" class="form-check-input me-3" type="checkbox" />
+                                        <label asp-for="@Model.SiteSettings.ShowSkillsDe" class="form-check-label">Show Skills Section</label>
+                                    </div>
+                                    <div class="form-check form-switch d-flex align-items-center mb-3">
+                                        <input asp-for="@Model.SiteSettings.ShowProjectsDe" class="form-check-input me-3" type="checkbox" />
+                                        <label asp-for="@Model.SiteSettings.ShowProjectsDe" class="form-check-label">Show Projects Section</label>
+                                    </div>
+                                    <div class="form-check form-switch d-flex align-items-center mb-3">
+                                        <input asp-for="@Model.SiteSettings.ShowGalleryDe" class="form-check-input me-3" type="checkbox" />
+                                        <label asp-for="@Model.SiteSettings.ShowGalleryDe" class="form-check-label">Show Gallery Section</label>
+                                    </div>
+                                    <div class="form-check form-switch d-flex align-items-center">
+                                        <input asp-for="@Model.SiteSettings.ShowContactUsDe" class="form-check-input me-3" type="checkbox" />
+                                        <label asp-for="@Model.SiteSettings.ShowContactUsDe" class="form-check-label">Show Contact Us Section</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+             
+
+                    <!-- Logo Upload -->
+                    <div class="form-group mb-4">
+                        <label asp-for="@Model.SiteSettings.LogoPath" class="form-label">Logo Upload</label>
+                        <input asp-for="@Model.ImageFile" class="form-control" type="file" accept="image/*" />
+                        <small style="color: red">@TempData["ErrorMessage"]</small>
+                    </div>
+                    <div class="text-center mb-4">
+                        <img src="/@Model.SiteSettings.LogoPath" alt="Logo" height="150" class="img-thumbnail" />
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary col-12 py-3">Save Settings</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-check-input {
+        transform: scale(1.2);
+        cursor: pointer;
+    }
+
+    .form-check-label {
+        font-size: 1.1rem;
+    }
+
+    .card {
+        background-color: #1e1e1e;
+        color: #ffffff;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+</style>
+

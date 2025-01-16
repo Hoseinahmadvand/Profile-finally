@@ -1,0 +1,128 @@
+﻿@page
+@model Profile.Pages.Admin.FooterMange.IndexModel
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Manage Footer";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card bg-dark text-light shadow-lg">
+        <div class="card-header d-flex justify-content-between align-items-center border-0">
+            <h3 class="fw-bold m-0">Footer List</h3>
+            <a asp-page="Create" class="btn btn-success btn-sm shadow-sm">
+                <i class="bi bi-plus-circle me-2"></i>Add New Footer Item
+            </a>
+        </div>
+        <div class="card-body">
+            <table class="table table-dark table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Position</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Language</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var footer in Model.Footers)
+                    {
+                        <tr>
+                            <td>@footer.Id</td>
+                            <td>@footer.Position</td>
+                            <td>@footer.Title</td>
+                            <td><img src="/@(footer.lang).svg" class="flag-icon" style="width: 20px; height: 20px;" /></td>
+                            <td>
+                                <a asp-page="Edit" asp-route-id="@footer.Id" class="btn btn-outline-success btn-sm shadow-sm">
+                                    <i class="bi bi-pencil-square me-1"></i>Edit
+                                </a>
+                                <button class="btn btn-outline-danger btn-sm shadow-sm" onclick="showDeleteModal(@footer.Id, '@footer.Title');">
+                                    <i class="bi bi-trash me-1"></i>Delete
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark text-light">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete the footer item: <strong id="footerTitle"></strong>?
+            </div>
+            <div class="modal-footer border-0">
+                <form method="post" id="deleteForm">
+                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showDeleteModal(id, title) {
+        document.getElementById('footerTitle').textContent = title;
+        document.getElementById('deleteForm').action = `/Admin/FooterMange?handler=Delete&id=${id}`;
+        var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+        deleteModal.show();
+    }
+</script>
+
+<style>
+    body {
+        background-color: #121212;
+        color: #ffffff;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-header {
+        background-color: #343a40;
+        border-bottom: 2px solid #495057;
+        padding: 1rem 1.5rem;
+    }
+
+    .btn-success, .btn-outline-danger {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        color: #ffffff;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+    .btn-outline-danger {
+        border-color: #dc3545;
+        color: #dc3545;
+    }
+
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            color: #ffffff;
+        }
+
+    .table {
+        margin-top: 1rem;
+    }
+
+    th, td {
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>

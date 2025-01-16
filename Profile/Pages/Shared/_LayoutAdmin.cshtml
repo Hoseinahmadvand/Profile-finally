@@ -1,0 +1,320 @@
+﻿@using Profile.Services.Interfaces
+@inject ISiteSettingService SiteSettingService
+@{
+    var siteSettings = await SiteSettingService.GetSiteSettingsAsync();
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> Admin-@ViewData["Title"]</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+
+    <link rel="stylesheet" href="~/Admin/assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="~/Admin/assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="~/Admin/assets/vendors/jvectormap/jquery-jvectormap.css">
+    <link rel="stylesheet" href="~/Admin/assets/vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="~/Admin/assets/vendors/owl-carousel-2/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Admin/assets/vendors/owl-carousel-2/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/style.css">
+    <link rel="shortcut icon" href="~/Admin/assets/images/favicon.png" />
+    <link rel="shortcut icon" href="/@siteSettings.LogoPath" />
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <style>
+        #toast-container > .toast-success {
+            background-color: #28a745; /* تغییر رنگ پس‌زمینه موفقیت */
+            color: white; /* تغییر رنگ متن */
+        }
+
+        #toast-container > .toast-error {
+            background-color: #dc3545; /* تغییر رنگ پس‌زمینه خطا */
+            color: white;
+        }
+
+        .cke_notifications_area{
+            display:none;
+        }
+    </style>
+
+
+    <style>
+        .dataTables_wrapper .dataTables_filter input {
+            background-color: #343a40;
+            color: white;
+            border: 1px solid #495057;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            color: white !important;
+        }
+
+            .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+                background-color: #495057 !important;
+            }
+
+        .dataTables_wrapper .dataTables_length select {
+            background-color: #343a40;
+            color: white;
+        }
+
+        .card-title {
+            border-bottom: 2px solid #495057;
+            padding-bottom: 10px;
+        }
+    </style>
+
+
+
+</head>
+<body>
+
+    <div class="container-scroller">
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
+                 <a class="sidebar-brand brand-logo" href="index.html"><img src="/@siteSettings.LogoPath" alt="logo" href="60"></a>
+                <a class="sidebar-brand brand-logo-mini" href="index.html"><img src="/@siteSettings.LogoPath alt="logo"></a>
+            </div>
+
+            <ul class="nav flex-column mt-4" dir="rtl">
+                <!-- Profile Section -->
+                <li class="nav-item profile" dir="ltr">
+                    <div class="profile-desc">
+                        <div class="profile-pic">
+                            <div class="count-indicator">
+                                <img class="img-xs rounded-circle" src="~/6185659.png" alt="Profile Image">
+                                <span class="count bg-success"></span>
+                            </div>
+                            <div class="profile-name">
+                                <h5 class="mb-0 font-weight-normal">@User.Identity.Name</h5>
+                                <span>Admin</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!-- Menu Items -->
+                <li class="nav-item" >
+                    <a class="nav-link d-flex align-items-center p-3" asp-page="/Admin/Common/index">
+                        <i class="mdi mdi-speedometer menu-icon me-3 text-primary"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center p-3" asp-page="/Admin/setting/Settings">
+                        <i class="mdi mdi-settings menu-icon me-3 text-secondary"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            @*     <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center p-3" asp-page="/Admin/ConnectUs/Index">
+                        <i class="mdi mdi-email menu-icon me-3 text-info"></i>
+                        <span>Contact Us</span>
+                    </a>
+                </li> *@
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center p-3" asp-page="/Admin/Videos/index">
+                        <i class="mdi mdi-playlist-play menu-icon me-3 text-success"></i>
+                        <span>Videos</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center p-3" asp-page="/Admin/Projects/index">
+                        <i class="mdi mdi-table-large menu-icon me-3 text-warning"></i>
+                        <span>Projects</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center p-3" asp-page="/Admin/Skills/index">
+                        <i class="mdi mdi-chart-bar menu-icon me-3 text-danger"></i>
+                        <span>Skills</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center p-3" asp-page="/Admin/GalleryImages/index">
+                        <i class="mdi mdi-image menu-icon me-3 text-light"></i>
+                        <span>Gallery</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center p-3" asp-page="/Admin/AboutUss/index">
+                        <i class="mdi mdi-information menu-icon me-3 text-primary"></i>
+                        <span>About Us</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center p-3" href="/Admin/FooterMange/index">
+                        <i class="mdi mdi-foot-print menu-icon me-3 text-secondary"></i>
+                        <span>Footer</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-page="/Admin/commentmng/index" class="nav-link d-flex align-items-center p-3">
+                        <i class="mdi mdi-comment-outline menu-icon me-3 text-info"></i>
+                        <span>Comments</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-page="/Login" class="nav-link d-flex align-items-center p-3" asp-page-handler="Logout">
+                        <i class="mdi mdi-logout menu-icon me-3 text-danger"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+
+
+
+
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_navbar.html -->
+            <nav class="navbar p-0 fixed-top d-flex flex-row">
+                <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
+                    <a class="navbar-brand brand-logo-mini" href="index.html">
+                        <img src="assets/images/logo-mini.svg" alt="logo" />
+                    </a>
+                </div>
+
+            </nav>
+
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 10px; right: 10px; z-index: 1050;">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            @TempData["SuccessMessage"]
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            }
+
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div id="errorToast" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 70px; right: 10px; z-index: 1050;">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            @TempData["ErrorMessage"]
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            }
+
+
+       
+
+
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+
+                    @RenderBody()
+                </div>
+                <!-- content-wrapper ends -->
+                <!-- partial:partials/_footer.html -->
+                <footer class="footer">
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin templates</a> from Bootstrapdash.com</span>
+                    </div>
+                </footer>
+                <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+
+    </div>
+    <!-- در انتهای بخش <body> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Admin/assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="~/Admin/assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="~/Admin/assets/vendors/progressbar.js/progressbar.min.js"></script>
+    <script src="~/Admin/assets/vendors/jvectormap/jquery-jvectormap.min.js"></script>
+    <script src="~/Admin/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="~/Admin/assets/vendors/owl-carousel-2/owl.carousel.min.js"></script>
+    <script src="~/Admin/assets/js/off-canvas.js"></script>
+    <script src="~/Admin/assets/js/hoverable-collapse.js"></script>
+    <script src="~/Admin/assets/js/misc.js"></script>
+    <script src="~/Admin/assets/js/settings.js"></script>
+    <script src="~/Admin/assets/js/todolist.js"></script>
+    <script src="~/Admin/assets/js/dashboard.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+    <script>
+        const editorConfig = {
+            removePlugins: 'uploadimage,uploadfile,about',
+            toolbar: [
+                     { name: 'document', items: ['Source', '-', 'Preview', 'Print'] }, // اضافه کردن پرینت
+        { name: 'clipboard', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'] },
+        { name: 'editing', items: ['Find', 'Replace', '-', 'SelectAll', '-', 'SpellChecker'] },
+        { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'RemoveFormat'] },
+         { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl'] }, // اضافه کردن دکمه‌های راست‌چین و چپ‌چین
+      { name: 'links', items: ['Link', 'Unlink', 'Anchor'] }, // اضافه کردن لینک‌ها
+        { name: 'insert', items: ['Table', 'HorizontalRule', 'SpecialChar', 'Iframe'] }, // اضافه کردن Iframe
+        { name: 'styles', items: ['Styles', 'Format', 'Font', 'FontSize'] },
+        { name: 'colors', items: ['TextColor', 'BGColor'] },
+        { name: 'tools', items: ['Maximize', 'ShowBlocks'] }, // اضافه کردن نمایش بلوک‌ها
+        { name: 'media', items: ['Embed'] } // اضافه کردن Embed برای ویدیوها
+    
+            ],
+            removeButtons: 'Image,Anchor,Flash,PageBreak',
+            autoGrow_minHeight: 200, // تنظیم ارتفاع خودکار
+            autoGrow_maxHeight: 600,
+            height: 300, // ارتفاع ثابت اولیه
+            resize_enabled: true, 
+            placeholder: 'Start typing here...'
+        };
+
+        CKEDITOR.replace('FarsiDescription');
+        CKEDITOR.replace('ArabicDescription');
+        CKEDITOR.replace('GermanDescription');
+        CKEDITOR.replace('Description', editorConfig);
+
+
+    </script>
+
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const successMessage = "@TempData["SuccessMessage"]";
+        const errorMessage = "@TempData["ErrorMessage"]";
+
+        // نمایش پیام موفقیت
+        if (successMessage) {
+            toastr.success(successMessage, 'Success', {
+                timeOut: 5000,
+                closeButton: true,
+                progressBar: true,
+                positionClass: "toast-top-right"
+            });
+        }
+
+        // نمایش پیام خطا
+        if (errorMessage) {
+            toastr.error(errorMessage, 'Error', {
+                timeOut: 5000,
+                closeButton: true,
+                progressBar: true,
+                positionClass: "toast-top-right"
+            });
+        }
+    });
+</script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

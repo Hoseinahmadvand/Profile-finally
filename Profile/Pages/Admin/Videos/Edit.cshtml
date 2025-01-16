@@ -1,0 +1,110 @@
+﻿@page
+@model Profile.Pages.Admin.Videos.EditModel
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Edit Video";
+}
+
+<h1 class="text-center text-white mt-4">Edit Video</h1>
+
+<div class="container mt-5">
+    <form method="post" enctype="multipart/form-data" class="bg-dark text-white p-4 rounded shadow-lg">
+        <div class="mb-3">
+            <select class="form-control" asp-for="Language">
+                @if (Model.Language == Models.Common.Language.fa)
+                {
+                    <option value="1" selected>Persian</option>
+                }
+                else
+                {
+                    <option value="1">Persian</option>
+                }
+                @if (Model.Language == Models.Common.Language.ar)
+                {
+                    <option value="2" selected>Arabic</option>
+                }
+                else
+                {
+                    <option value="2">Arabic</option>
+                }
+                @if (Model.Language == Models.Common.Language.de)
+                {
+                    <option value="3" selected>Germany</option>
+                }
+                else
+                {
+                    <option value="3">Persian</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label">Title</label>
+            <input type="text" asp-for="Title" class="form-control" placeholder="Enter new title" />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">Description</label>
+            <textarea asp-for="Description" class="form-control" rows="4" placeholder="Enter new description"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="File" class="form-label">Replace Video</label>
+            <input type="file" asp-for="File" class="form-control" accept="video/mp4,video/webm ,video/ogg,video/mkv" />
+            <small style="color: red">@TempData["ErrorMessage"]</small>
+            <small class="text-muted">Leave this empty if you don't want to replace the video.</small>
+        </div>
+        <input type="hidden" asp-for="Url" value="@Model.Url" />
+
+        <div class="d-flex justify-content-between mt-4">
+            <button type="submit" class="btn btn-primary btn-lg px-4">Save</button>
+            <a asp-page="./Index" class="btn btn-secondary btn-lg px-4">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<style>
+    body {
+        background-color: #121212;
+        color: #ffffff;
+    }
+
+    .container {
+        max-width: 800px;
+    }
+
+    .form-control {
+        background-color: #1e1e1e;
+        color: #ffffff;
+        border: 1px solid #495057;
+    }
+
+    .form-control:focus {
+        background-color: #1e1e1e;
+        color: #ffffff;
+        border-color: #0d6efd;
+        box-shadow: none;
+    }
+
+    .btn-primary {
+        background-color: #0d6efd;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-secondary {
+        background-color: #495057;
+        border: none;
+    }
+
+    .btn-secondary:hover {
+        background-color: #343a40;
+    }
+
+    .shadow-lg {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    }
+</style>

@@ -1,0 +1,112 @@
+﻿@page "{id:int}"
+@model EditModel
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Edit Project";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card bg-dark text-light shadow-lg">
+        <div class="card-header text-center border-0">
+            <h3 class="fw-bold">Edit Project</h3>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="ProjectId" value="@Model.ProjectId"  />
+                <div class="form-group mb-3">
+                    <label class="form-label">Current Image</label>
+                    <div>
+                        <img src="~/@Model.ImagePath" alt="Project Image" width="200" class="img-thumbnail" />
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label class="form-label">Upload New Image</label>
+                    <input type="file" asp-for="ImageFile" class="form-control" accept="image/*" />
+                    <small style="color: red">@TempData["ErrorMessage"]</small>
+                </div>
+
+                <fieldset class="mb-3">
+                    <div class="form-group mb-3">
+                        <label class="form-label">Title</label>
+                        <input asp-for="Title" class="form-control" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label">Language</label>
+
+                        <select class="form-control" asp-for="lang">
+                            @if (Model.lang == Models.Common.Language.fa)
+                            {
+                                <option value="fa" selected>Persian</option>
+                            }
+                            else
+                            {
+                                <option value="fa">Persian</option>
+                            }
+                            @if (Model.lang == Models.Common.Language.ar)
+                            {
+                                <option value="ar" selected>Arabic</option>
+                            }
+                            else
+                            {
+                                <option value="ar">Arabic</option>
+                            }
+                            @if (Model.lang == Models.Common.Language.de)
+                            {
+                                <option value="de" selected>Germany</option>
+                            }
+                            else
+                            {
+                                <option value="de">Germany</option>
+                            }
+                        </select>
+
+
+                    </div>
+                </fieldset>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-outline-success btn-lg shadow-sm">
+                        <i class="bi bi-save me-2"></i>Save Changes
+                    </button>
+                    <a asp-page="./Index" class="btn btn-outline-light btn-lg shadow-sm">
+                        <i class="bi bi-arrow-left me-2"></i>Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #121212;
+        color: #ffffff;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-header {
+        background-color: #343a40;
+        border-bottom: 2px solid #495057;
+    }
+
+    .btn-outline-success, .btn-outline-light {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .btn-outline-success:hover {
+            background-color: #28a745;
+            color: #ffffff;
+        }
+
+        .btn-outline-light:hover {
+            background-color: #ffffff;
+            color: #121212;
+        }
+</style>

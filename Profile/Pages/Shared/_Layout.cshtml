@@ -1,0 +1,532 @@
+﻿@using Microsoft.Extensions.Localization
+@using Profile.Services.Interfaces
+@inject IStringLocalizer<SharedResource> Localizer
+@inject ISiteSettingService SiteSettingService
+@{
+    var siteSettings = await SiteSettingService.GetSiteSettingsAsync();
+    string title = Model.CurrentCulture switch
+    {
+        "fa" => siteSettings.TitleSiteFa,
+        "ar" => siteSettings.TitleSiteAr,
+        "de" => siteSettings.TitleSiteDe,
+        _ => "title" // Default title
+    };
+
+    var languages = new Dictionary<string, string>
+    {
+        { "fa", "فارسی" },
+        { "ar", "العربية" },
+        { "de", "Deutsch" }
+    };
+
+    var languageflags = new Dictionary<string, string>
+    {
+        { "fa", "/fa.svg"},
+        { "ar", "/ar.svg" },
+        { "de", "/de.svg" }
+    };
+    var currentFlag = languageflags.ContainsKey(Model.CurrentCulture)
+      ? languageflags[Model.CurrentCulture]
+      : "/Flag_default.svg";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - @title</title>
+    <link rel="shortcut icon" href="/@siteSettings.LogoPath" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="~/css/style.css" rel="stylesheet" />
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+      <link href="~/bootstrap-5.3.3-dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/bootstrap-5.3.3-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link href="~/css/toastr.css" rel="stylesheet" />
+    <link href="~/css/toastr.min.css" rel="stylesheet" />
+
+
+    @if (Model.CurrentCulture == "fa" || Model.CurrentCulture == "ar")
+    {
+        <style>
+            body {
+                direction: rtl;
+            }
+        </style>
+
+    }
+    <style>
+
+
+
+        .custom-toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 300px;
+            padding: 20px;
+            font-size: 1.25rem; /* سایز متن را بزرگ‌تر می‌کند */
+            z-index: 1050;
+        }
+
+        .toast-body {
+            font-weight: bold;
+        }
+
+        #project-slider {
+            margin-bottom: 50px;
+        }
+
+        #all-projects .card {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+            #all-projects .card:hover {
+                transform: translateY(-5px);
+            }
+
+    </style>
+
+
+    <style>
+        /* تنظیم پس‌زمینه مودال */
+        .modal-content {
+            background-color: #212529; /* پس‌زمینه تیره */
+            color: #fff; /* متن سفید */
+            border-radius: 10px; /* گوشه‌های گرد */
+            overflow: hidden;
+        }
+
+        /* دکمه‌های قبل و بعد */
+        .btn-dark {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            border: none;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+            .btn-dark:hover {
+                background-color: rgba(0, 0, 0, 0.9);
+            }
+
+        /* تصویر داخل مودال */
+        .modal-body img {
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+    </style>
+    @if (Model.CurrentCulture == "de")
+    {
+        <link href="https://fonts.cdnfonts.com/css/pt-sans-2" rel="stylesheet">
+
+        <style>
+            * {
+                font-family: 'PT Sans', sans-serif;
+                font-family: 'PT Sans Caption', sans-serif;
+                font-family: 'PT Sans Narrow', sans-serif;
+            }
+        </style>
+
+    }
+
+</head>
+<body class="bg-dark text-white">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container-fluid d-flex align-items-center justify-content-between">
+                <!-- Logo/Brand Name -->
+                <a class="navbar-brand fw-bold fs-4 d-flex align-items-center" href="#">
+                    <img src="/@siteSettings.LogoPath" alt="Logo" height="40" class="me-2" />
+
+                </a>
+
+                <!-- Navbar Links -->
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item" style="margin:0.75rem">
+                            <div class="custom-select-container me-3">
+                                <div class="custom-select-toggle" onclick="toggleDropdown()">
+                                    <img src="@currentFlag" alt="@Model.CurrentCulture" class="flag-icon" height="20" />
+                                </div>
+                                <div class="custom-select-options">
+                                    @foreach (var lang in languages)
+                                    {
+                                        var flagSrc = lang.Key switch
+                                        {
+                                            "ar" => "/ar.svg",
+                                            "de" => "/de.svg",
+                                            "fa" => "/fa.svg",
+                                        };
+                                        <form method="post" asp-page-handler="SetLanguage" style="display: inline;">
+                                            <input type="hidden" name="culture" value="@lang.Key" />
+                                            <button type="submit" class="custom-select-option">
+                                                <img src="@flagSrc" alt="@lang.Value flag" class="flag-icon me-2" height="15" />
+                                                <span>@lang.Value</span>
+                                            </button>
+                                        </form>
+                                    }
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#video-slider">@Localizer["HomePage_Title"]</a>
+                        </li>
+                        @if (Model.CurrentCulture == "fa")
+                        {
+                            @if (siteSettings.ShowProjectsFa)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="#project">@Localizer["Projects_Title"]</a>
+                                </li>
+                            }
+                            @if (siteSettings.ShowSkillsFa)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="#skills">@Localizer["Skills_Title"]</a>
+                                </li>
+                            }
+                            @if (siteSettings.ShowGalleryFa)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="#gallery">@Localizer["Gallery_Title"]</a>
+                                </li>
+                            }
+                            @if (siteSettings.ShowContactUsFa)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="#about-us">@Localizer["AboutUs_Title"]</a>
+                                </li>
+                            }
+                        }
+                        @if (Model.CurrentCulture == "ar")
+                        {
+                            @if (siteSettings.ShowProjectsAr)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="#project">@Localizer["Projects_Title"]</a>
+                                </li>
+                            }
+                            @if (siteSettings.ShowSkillsAr)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="#skills">@Localizer["Skills_Title"]</a>
+                                </li>
+                            }
+                            @if (siteSettings.ShowGalleryAr)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="#gallery">@Localizer["Gallery_Title"]</a>
+                                </li>
+                            }
+                            @if (siteSettings.ShowContactUsAr)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="#about-us">@Localizer["AboutUs_Title"]</a>
+                                </li>
+                            }
+                        }
+
+                        @if (Model.CurrentCulture == "de")
+                        {
+                            @if (siteSettings.ShowProjectsDe)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="#project">@Localizer["Projects_Title"]</a>
+                                </li>
+                            }
+                            @if (siteSettings.ShowSkillsDe)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="#skills">@Localizer["Skills_Title"]</a>
+                                </li>
+                            }
+                            @if (siteSettings.ShowGalleryDe)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="#gallery">@Localizer["Gallery_Title"]</a>
+                                </li>
+                            }
+                            @if (siteSettings.ShowContactUsDe)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="#about-us">@Localizer["AboutUs_Title"]</a>
+                                </li>
+                            }
+                        }
+
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#contact-us">@Localizer["ContactUs_Title"]</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Language Selector and Toggler -->
+                <div class="d-flex align-items-center">
+
+
+                    <!-- User Profile or Button on the Right -->
+                    <h3 style="margin-left:1rem;margin-right:2rem">@title</h3>
+                </div>
+
+                <!-- Hamburger Menu for Mobile -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+ @if (TempData["SuccessMessage"] != null)
+{
+    <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 10px; right: 10px; z-index: 1050;">
+        <div class="d-flex">
+            <div class="toast-body">
+                @TempData["SuccessMessage"]
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div id="errorToast" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 70px; right: 10px; z-index: 1050;">
+        <div class="d-flex">
+            <div class="toast-body">
+                @TempData["ErrorMessage"]
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+}
+
+ 
+    @RenderBody()
+
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    @*
+    <script src="~/bootstrap-5.3.3-dist/js/bootstrap.bundle.js"></script>
+    <script src="~/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/bootstrap-5.3.3-dist/js/bootstrap.esm.js"></script>
+    <script src="~/bootstrap-5.3.3-dist/js/bootstrap.esm.min.js"></script>
+    <script src="~/bootstrap-5.3.3-dist/js/bootstrap.js"></script>
+    <script src="~/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script> *@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @*   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script> *@
+
+    <script src="~/js/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- اسکریپت Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js?render=6LdwRaQqAAAAAEL41WUITO5OVzj052lZZi1aHJAs"></script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const successMessage = "@TempData["SuccessMessage"]";
+        const errorMessage = "@TempData["ErrorMessage"]";
+
+        // نمایش پیام موفقیت
+        if (successMessage) {
+            toastr.success(successMessage, 'Success', {
+                timeOut: 5000,
+                closeButton: true,
+                progressBar: true,
+                positionClass: "toast-top-right"
+            });
+        }
+
+        // نمایش پیام خطا
+        if (errorMessage) {
+            toastr.error(errorMessage, 'Error', {
+                timeOut: 5000,
+                closeButton: true,
+                progressBar: true,
+                positionClass: "toast-top-right"
+            });
+        }
+    });
+</script>
+
+    <script>
+        function toggleDropdown() {
+            const options = document.querySelector(".custom-select-options");
+            options.style.display = options.style.display === "block" ? "none" : "block";
+        }
+
+        window.onclick = function (event) {
+            if (!event.target.closest('.custom-select-container')) {
+                const dropdowns = document.getElementsByClassName("custom-select-options");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    dropdowns[i].style.display = "none";
+                }
+            }
+        };
+
+
+    </script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('6LdwRaQqAAAAAEL41WUITO5OVzj052lZZi1aHJAs', { action: 'submit' }).then(function (token) {
+                document.getElementById('g-recaptcha-response').value = token;
+            });
+        });
+    </script>
+    <!--project-->
+    <script>
+        let currentSlideIndex = 0;
+
+        function moveSlide(direction) {
+            const wrapper = document.querySelector('.slider-wrapper-dark');
+            const slides = document.querySelectorAll('.slide-dark');
+            const slideWidth = slides[0].offsetWidth + 20; // عرض هر اسلاید + فاصله
+            const visibleSlides = 4; // تعداد اسلایدهای قابل مشاهده
+            const maxIndex = slides.length - visibleSlides;
+
+            currentSlideIndex = Math.max(0, Math.min(currentSlideIndex + direction, maxIndex));
+
+            wrapper.style.transform = `translateX(-${currentSlideIndex * slideWidth}px)`;
+        }
+
+
+        function showProjectDetails(title, description, imageName) {
+            // پیدا کردن مودال و عناصر داخلی آن
+            const modal = document.getElementById("projectDetailsModal");
+            const modalTitle = document.getElementById("projectModalTitle");
+            const modalDescription = document.getElementById("projectModalDescription");
+            const modalImage = document.getElementById("projectModalImage");
+
+            // پر کردن اطلاعات مودال
+            modalTitle.textContent = title;
+            modalDescription.textContent = description;
+            modalImage.src = imageName;
+
+            // نمایش مودال
+            modal.style.display = "block";
+        }
+
+        function closeProjectModal() {
+            // بستن مودال
+            const modal = document.getElementById("projectDetailsModal");
+            modal.style.display = "none";
+        }
+
+        // بستن مودال هنگام کلیک خارج از آن
+        window.onclick = function (event) {
+            const modal = document.getElementById("projectDetailsModal");
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+
+
+
+    </script>
+    <!--Gallery-->
+        <script>
+            function openGalleryModal(index) {
+            const modalImage = document.getElementById('galleryModalImage');
+            const images = @Html.Raw(Json.Serialize(Model.GalleryImages));
+            modalImage.src = images[index].ImagePath;
+            new bootstrap.Modal(document.getElementById('galleryModal')).show();
+            }
+
+        function changeGalleryImage(direction) {
+            const modalImage = document.getElementById('galleryModalImage');
+            const images = @Html.Raw(Json.Serialize(Model.GalleryImages));
+                const currentIndex = images.findIndex(image => image.ImagePath === modalImage.src);
+            let newIndex = (currentIndex + direction + images.length) % images.length;
+            modalImage.src = images[newIndex].ImagePath;
+        }
+
+    </script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let currentGalleryIndex = 0;
+        const galleryImages = document.querySelectorAll('.gallery-image');
+
+        // باز کردن مودال و نمایش تصویر
+        function openGalleryModal(index) {
+            currentGalleryIndex = index;
+
+            const selectedImage = galleryImages[currentGalleryIndex].getAttribute('src');
+            document.getElementById('galleryModalImage').setAttribute('src', selectedImage);
+
+            const modal = new bootstrap.Modal(document.getElementById('galleryModal'));
+            modal.show();
+        }
+
+        // تغییر تصویر در مودال
+        function changeGalleryImage(direction) {
+            currentGalleryIndex += direction;
+
+            if (currentGalleryIndex < 0) {
+                currentGalleryIndex = galleryImages.length - 1;
+            } else if (currentGalleryIndex >= galleryImages.length) {
+                currentGalleryIndex = 0;
+            }
+
+            const selectedImage = galleryImages[currentGalleryIndex].getAttribute('src');
+            document.getElementById('galleryModalImage').setAttribute('src', selectedImage);
+        }
+
+        // اکسپورت توابع به پنجره
+        window.openGalleryModal = openGalleryModal;
+        window.changeGalleryImage = changeGalleryImage;
+    });
+</script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousel = document.querySelector('#carouselExampleControls');
+            const videos = carousel.querySelectorAll('video');
+
+            // Event listener for carousel slide change
+            carousel.addEventListener('slide.bs.carousel', (event) => {
+                // Stop all videos
+                videos.forEach(video => {
+                    video.pause();
+                    video.currentTime = 0; // Reset to start
+                });
+
+                // Play the video in the next active item
+                const nextVideo = event.relatedTarget.querySelector('video');
+                if (nextVideo) {
+                    nextVideo.play();
+                }
+            });
+
+            // Play the first video on load
+            const activeVideo = carousel.querySelector('.carousel-item.active video');
+            if (activeVideo) {
+                activeVideo.play();
+            }
+        });
+    </script>
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

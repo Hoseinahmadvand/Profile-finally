@@ -1,0 +1,69 @@
+﻿@page "{id:int}"
+
+@model EditModel
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Edit Contact Us";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card bg-dark text-light shadow-lg">
+        <div class="card-header text-center border-0">
+            <h3 class="fw-bold">Edit Contact Us</h3>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <!-- Main Information -->
+           
+                <div class="form-group mb-3">
+                    <label class="form-label">Email</label>
+                    <input asp-for="Email" class="form-control" />
+                </div>
+                <div class="form-group mb-3">
+                    <label class="form-label">Phone</label>
+                    <input asp-for="Phone" class="form-control" />
+                </div>
+
+                <!-- Farsi Translation -->
+          
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-outline-light btn-lg shadow-sm">
+                        <i class="bi bi-save me-2"></i>Save Changes
+                    </button>
+                    <a asp-page="./Index" class="btn btn-secondary btn-lg shadow-sm">
+                        <i class="bi bi-x-circle me-2"></i>Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #121212;
+        color: #ffffff;
+    }
+    .card {
+        border-radius: 15px;
+    }
+    .card-header {
+        background-color: #343a40;
+        border-bottom: 2px solid #495057;
+    }
+    .btn-outline-light {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .btn-outline-light:hover {
+        background-color: #ffffff;
+        color: #121212;
+    }
+    .btn-secondary {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .btn-secondary:hover {
+        background-color: #6c757d;
+        color: #ffffff;
+    }
+</style>

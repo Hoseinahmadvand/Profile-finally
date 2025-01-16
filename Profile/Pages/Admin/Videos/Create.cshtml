@@ -1,0 +1,89 @@
+﻿@page
+@model Profile.Pages.Admin.Videos.CreateModel
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Create Video";
+}
+
+<h1 class="text-center text-white mt-4">Create Video</h1>
+
+<div class="container mt-5">
+    <form method="post" enctype="multipart/form-data" class="bg-dark text-white p-4 rounded shadow-lg">
+        <div class="mb-3">
+            <label asp-for="Language" class="form-label">Language</label>
+            <select asp-for="Language" class="form-select">
+                <option value="1">Persian</option>
+                <option value="2">Arabic</option>
+                <option value="3">German</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label">Title</label>
+            <input type="text" asp-for="Title" class="form-control" placeholder="Enter title" required />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">Description</label>
+            <textarea asp-for="Description" class="form-control" rows="4" placeholder="Enter description" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="File" class="form-label">Upload Video</label>
+            <input type="file" asp-for="File" class="form-control" accept="video/mp4,video/webm ,video/ogg,video/mkv" required />
+            <small style="color: red">@TempData["ErrorMessage"]</small>
+
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <button type="submit" class="btn btn-primary btn-lg px-4">Save</button>
+            <a asp-page="./Index" class="btn btn-secondary btn-lg px-4">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<style>
+    body {
+        background-color: #121212;
+        color: #ffffff;
+    }
+
+    .container {
+        max-width: 800px;
+    }
+
+    .form-control, .form-select {
+        background-color: #1e1e1e;
+        color: #ffffff;
+        border: 1px solid #495057;
+    }
+
+        .form-control:focus, .form-select:focus {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            border-color: #0d6efd;
+            box-shadow: none;
+        }
+
+    .btn-primary {
+        background-color: #0d6efd;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .btn-secondary {
+        background-color: #495057;
+        border: none;
+    }
+
+        .btn-secondary:hover {
+            background-color: #343a40;
+        }
+
+    .shadow-lg {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    }
+</style>

@@ -1,0 +1,82 @@
+﻿@page
+@model LoginModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Login";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>login-Admin</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="~/Admin/assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="~/Admin/assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="~/Admin/assets/css/style.css">
+    <link rel="shortcut icon" href="~/Admin/assets/images/favicon.png" />
+</head>
+<body>
+    <div class="container-scroller">
+        <div class="container-fluid page-body-wrapper full-page-wrapper">
+            <div class="row w-100 m-0">
+                <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-bg">
+                    <div class="card col-lg-4 mx-auto">
+                        <div class="card-body px-5 py-5">
+                            <h3 class="card-title text-left mb-3">Login</h3>
+                            <form method="post">
+                                <div class="form-group">
+                                    <label>Username *</label>
+                                    <input asp-for="Username" class="form-control p_input" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Password *</label>
+                                    <input asp-for="Password" class="form-control p_input" type="password" />
+                                </div>
+                            
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary btn-block enter-btn">Login</button>
+                                </div>
+
+
+                                @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                                {
+                                    <p class="text-danger">@Model.ErrorMessage</p>
+                                }
+
+                                <!-- فیلد مخفی برای reCAPTCHA -->
+                                <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response" />
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- content-wrapper ends -->
+            </div>
+            <!-- row ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <!-- اسکریپت Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js?render=6LdwRaQqAAAAAEL41WUITO5OVzj052lZZi1aHJAs"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('6LdwRaQqAAAAAEL41WUITO5OVzj052lZZi1aHJAs', { action: 'submit' }).then(function (token) {
+                document.getElementById('g-recaptcha-response').value = token;
+            });
+        });
+    </script>
+
+
+    <script src="~/Admin/assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="~/Admin/assets/js/off-canvas.js"></script>
+    <script src="~/Admin/assets/js/hoverable-collapse.js"></script>
+    <script src="~/Admin/assets/js/misc.js"></script>
+    <script src="~/Admin/assets/js/settings.js"></script>
+    <script src="~/Admin/assets/js/todolist.js"></script>
+    <!-- endinject -->
+</body>
+</html>

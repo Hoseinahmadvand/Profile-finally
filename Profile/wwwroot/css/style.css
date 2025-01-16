@@ -1,0 +1,494 @@
+﻿
+@font-face {
+    font-family: 'BBCNasim';
+    src: url('/fonts/bbc.ttf') format('truetype'), url('/fonts/bbc.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BBCNasimBold';
+    src: url('/fonts/bbcnasim-bold.ttf') format('truetype'); /* اگر نسخه بولد دارید */
+    font-weight: bold;
+    font-style: normal;
+}
+
+
+/* Load Fonts */
+@font-face {
+    font-family: 'BBCNassim';
+    src: url('/fonts/BBCNassim.woff2') format('woff2'), url('/fonts/BBCNassim.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+/* Apply Fonts Globally */
+* {
+    font-family: 'BBCNasim', sans-serif;
+}
+
+
+/* General Footer Styles */
+.footer {
+    background-color: #000; /* رنگ تیره مشابه اپل */
+    color: #fff;
+    padding: 40px 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+    .footer .container {
+        display: flex;
+        justify-content: center; /* محتویات وسط‌چین شوند */
+        align-items: center; /* چیدمان عمودی به مرکز */
+        flex-wrap: wrap; /* در صورت کمبود فضا، ستون‌ها به خط بعدی بروند */
+        max-width: 1200px;
+        margin: 0 auto;
+        gap: 20px; /* فاصله بین ستون‌ها */
+    }
+
+/* Footer Columns */
+.footer-column {
+    flex: 1;
+    min-width: 200px; /* حداقل عرض ستون */
+    max-width: 300px; /* حداکثر عرض ستون */
+    text-align: center; /* محتوای ستون در مرکز قرار گیرد */
+}
+
+    .footer-column ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+            .footer-column ul li a {
+                color: #d1d1d1;
+                text-decoration: none;
+                transition: color 0.3s ease;
+                font-size: 14px;
+            }
+
+                .footer-column ul li a:hover {
+                    color: #fff; /* تغییر رنگ هنگام هاور */
+                }
+
+/* Footer Bottom */
+.footer-bottom {
+    margin-top: 30px;
+    border-top: 1px solid #333;
+    padding-top: 20px;
+    font-size: 13px;
+    color: #777;
+    text-align: center; /* متن وسط‌چین */
+}
+
+    .footer-bottom p {
+        margin: 5px 0;
+    }
+
+
+
+
+
+
+/* کانتینر اصلی اسلایدر */
+.slider-container-dark {
+    display: flex;
+    justify-content: center; /* مرکز‌چین کردن افقی کارت‌ها */
+    align-items: center; /* مرکز‌چین کردن عمودی */
+    flex-wrap: wrap; /* اگر کارت‌ها بیشتر شوند، به ردیف جدید منتقل شوند */
+    width: 100%;
+    margin: 0 auto; /* مرکز‌چین کردن کل اسلایدر */
+    padding: 20px 0;
+    position: relative;
+}
+
+.slider-wrapper-dark {
+    display: flex;
+    justify-content: center; /* مرکز‌چین کردن کارت‌ها در داخل اسلایدر */
+    align-items: center; /* تراز عمودی */
+    flex-wrap: wrap; /* انتقال کارت‌ها به خطوط جدید در صورت نیاز */
+    gap: 20px; /* فاصله بین کارت‌ها */
+    width: 100%; /* کارت‌ها به اندازه عرض در دسترس نمایش داده می‌شوند */
+}
+
+.slide-dark {
+    display: flex;
+    flex-direction: column; /* چینش محتوای کارت به صورت عمودی */
+    align-items: center; /* مرکز‌چین کردن محتوای داخل کارت */
+    justify-content: center; /* مرکز‌چین کردن محتوای کارت به صورت عمودی */
+    flex: 0 0 20%; /* کارت‌ها اندازه ثابتی داشته باشند (می‌توانید تغییر دهید) */
+    background-color: #444;
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 300px; /* ارتفاع کارت */
+}
+
+
+
+
+    /* افکت هنگام هاور */
+    .slide-dark:hover {
+        transform: translateY(-10px) scale(1.05); /* حرکت به بالا و بزرگ‌شدن */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        z-index: 10; /* برای نمایش در بالاترین لایه */
+    }
+
+.card-dark img {
+    width: 300px; /* تصویر عرض کارت را پر کند */
+    height: 200px; /* ارتفاع ثابت برای تصویر */
+  /*  object-fit: cover;*/ /* حفظ تناسب تصویر در کارت */
+    border-radius: 8px; /* لبه‌های گرد */
+    transition: transform 0.3s ease-in-out;
+}
+
+/* افکت هاور روی تصویر */
+.slide-dark:hover img {
+    transform: scale(1.05); /* کمی بزرگ شدن تصویر هنگام هاور */
+}
+
+
+/* محتوای کارت */
+.card-body-dark {
+    padding: 10px;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* افکت ظاهر شدن متن هنگام هاور */
+.slide-dark:hover .card-body-dark {
+    opacity: 1;
+    transform: translateY(-5px); /* حرکت جزئی متن به بالا */
+}
+
+/* افکت سایه و حاشیه در هاور */
+.slide-dark:hover {
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: linear-gradient(145deg, #555, #333);
+}
+
+
+/* دکمه‌های کنترل */
+.slider-btn-dark {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    font-size: 18px;
+}
+
+    .slider-btn-dark.prev-dark {
+        left: 10px;
+    }
+
+    .slider-btn-dark.next-dark {
+        right: 10px;
+    }
+
+    .slider-btn-dark:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+
+/* مودال */
+/* مودال */
+.modal-dark {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #222;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    width: 650px; /* عرض مودال */
+    max-width: 90%; /* واکنش‌گرا بودن */
+}
+
+.modal-content-dark {
+    text-align: center;
+}
+
+    .modal-content-dark img {
+        width: 600px;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 15px;
+    }
+
+    .modal-content-dark h3 {
+        margin: 10px 0;
+    }
+
+.close-dark {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    color: #fff;
+}
+
+
+
+
+
+
+/* Wrapper for Scrollable Gallery */
+/* گالری اصلی */
+.gallery-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 90%; /* تنظیم عرض گالری */
+   /* background-color: #333;*/
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* تصاویر داخل گالری */
+.gallery-container {
+    display: flex;
+    gap: 15px;
+    transition: transform 0.5s ease-in-out;
+    overflow: hidden;
+}
+
+.gallery-item {
+    flex: 0 0 20%; /* عرض هر تصویر */
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .gallery-item:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+.gallery-image {
+    width: 100%;
+    height: 150px; /* ارتفاع تصاویر */
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* دکمه‌های گالری */
+.gallery-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 18px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+}
+
+    .gallery-btn:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
+
+
+
+/* مودال گالری */
+.gallery-modal {
+    display: none; /* مخفی بودن پیش‌فرض */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* پس‌زمینه شفاف */
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.gallery-modal-content {
+    position: relative;
+    max-width: 80%;
+    max-height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gallery-modal-image {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.gallery-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+.gallery-btn {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 18px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+}
+
+    .gallery-btn:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+.modal-prev-btn {
+    left: 10px;
+}
+
+.modal-next-btn {
+    right: 10px;
+}
+
+
+
+#toast-container > .toast-success {
+    background-color: #28a745; /* تغییر رنگ پس‌زمینه موفقیت */
+    color: white; /* تغییر رنگ متن */
+}
+
+#toast-container > .toast-error {
+    background-color: #dc3545; /* تغییر رنگ پس‌زمینه خطا */
+    color: white;
+}
+
+
+.carousel-control-prev, .carousel-control-next {
+    width: 5%; /* عرض پیش‌فرض برای نمایش مناسب فلش‌ها */
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5); /* پس‌زمینه برای دید بهتر */
+    border-radius: 50%; /* گرد کردن فلش‌ها */
+    padding: 10px; /* فضای داخلی */
+}
+
+    .carousel-control-prev-icon:hover, .carousel-control-next-icon:hover {
+        background-color: rgba(0, 0, 0, 0.8); /* تغییر رنگ در حالت هاور */
+    }
+
+
+
+
+
+
+
+.custom-select-container {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-select-toggle {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.custom-select-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.custom-select-option {
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    color: #333;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+}
+
+    .custom-select-option:hover {
+        background: #f1f1f1;
+    }
+
+.flag-icon {
+    margin-right: 8px;
+}
+
+.btn {
+    font-size: 14px;
+}
+
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+
+
+

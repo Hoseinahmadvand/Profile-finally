@@ -1,0 +1,332 @@
+﻿@page
+@using Microsoft.Extensions.Localization
+@using Profile.Models.SetingSiteAgg
+
+@model IndexModel
+@inject IStringLocalizer<IndexModel> Localizer
+
+@{
+    ViewData["Title"] = "Home";
+
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed; top: 10px; right: 10px; z-index: 1050;">
+        <div class="d-flex">
+            <div class="toast-body">
+                @Model.SuccssMessageTitle
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+}
+
+
+<!-- Videos Section -->
+<section id="video-slider" class="container-fluid p-0">
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner slider-container">
+
+            @for (int i = 0; i < Model.Videos.Count; i++)
+            {
+                var video = Model.Videos[i];
+                var isActive = i == 0 ? "active" : "";
+                <div class="carousel-item @isActive slider-item" style="align-content:center;text-align:center;align-items:center;">
+                    <video class="d-block w-100 fullscreen-video" muted playsinline>
+                        <source src="@video.Url" type="video/mp4">
+                    </video>
+                    <div class="carousel-caption" style="margin-bottom:20%">
+                        <div class="slider-text">@video.Title</div>
+                        <div class="glow-text">@Html.Raw(video.Description)</div>
+                    </div>
+                </div>
+            }
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
+</section>
+
+
+@if (Model.siteSettings.ShowProjects && Model.Projects != null && Model.Projects.Any())
+{
+    <section id="project">
+        <section id="remaining-projects-unique" class="container my-5 dark-section">
+            <!-- بنر بالای پروژه‌ها -->
+            <div class="text-center mb-3">
+                <h2>@Model.ProjectsTitle</h2>
+            </div>
+
+            <!-- کاروسل پروژه‌ها -->
+            <div id="projectsCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    @for (int i = 0; i < Model.Projects.Count; i += 3)
+                    {
+                        <!-- گروه پروژه‌ها -->
+                        <div class="carousel-item @(i == 0 ? "active" : "")">
+                            <div class="d-flex justify-content-center">
+                                @for (int j = i; j < i + 4 && j < Model.Projects.Count; j++)
+                                {
+                                    var project = Model.Projects[j];
+                                    <!-- کارت پروژه -->
+                                    <div class="slide-dark col-3 mx-2">
+                                        <div class="card-dark" data-bs-toggle="modal" data-bs-target="#modal-@project.Id">
+                                            <img src="@project.ImageName" class="card-img-top-dark" alt="@project.Title">
+                                            <div class="card-body-dark">
+                                                <h5 class="card-title-dark">@project.Title</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- مودال مربوط به پروژه -->
+                                    <div class="modal fade" id="modal-@project.Id" tabindex="-1" aria-labelledby="modalLabel-@project.Id" aria-hidden="true" >
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header" dir="ltr">
+                                                    <h5 class="modal-title" id="modalLabel-@project.Id">@project.Title</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <img src="@project.ImageName" alt="@project.Title" style="width: 100%; height: 400px; border-radius: 8px;">
+                                                    
+                                                        @Html.Raw(project.Description)
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- دکمه‌های کنترل -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#projectsCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">prev</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#projectsCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">next</span>
+                </button>
+            </div>
+        </section>
+    </section>
+}
+
+
+<!-- Skills Section with Progress Bars -->
+@if (Model.siteSettings.ShowSkills)
+{
+    <section id="skills" class="container py-5" style="margin-bottom: 10rem;">
+        <div class="text-center mb-3">
+            <h2> @Model.SkillsTitle</h2>
+        </div>
+        <div class="row justify-content-center">
+
+            @{
+                var colors = new string[] { "#007bff", "#28a745", "#ffc107", "#dc3545", "#17a2b8" };
+                int colorIndex = 0;
+            }
+            @foreach (var skill in Model.Skills)
+            {
+                <div class="col-md-3 text-center skill-container">
+                    <div style="position: relative; width: 180px; height: 180px; margin: 0 auto;">
+                        <svg viewBox="0 0 36 36" class="circular-chart" style="width: 100%; height: 100%;" data-dasharray="@skill.Persent">
+                            <path class="circle-bg" d="M18 2.0845
+                                a 15.9155 15.9155 0 0 1 0 31.831
+                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                                  fill="none" stroke="#f1f1f1" stroke-width="3" />
+                            <path class="circle" d="M18 2.0845
+                                a 15.9155 15.9155 0 0 1 0 31.831
+                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                                  fill="none" stroke="@colors[colorIndex]" stroke-width="3"
+                                  style="--dasharray: @skill.Persent; transition: stroke-dasharray 1s ease-in-out;" />
+                        </svg>
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 16px; font-weight: bold;">
+                            @skill.Persent%
+                        </div>
+                    </div>
+                    <h4 class="skill-title">
+                        @skill.Title
+                    </h4>
+                </div>
+
+                colorIndex = (colorIndex + 1) % colors.Length;
+
+            }
+        </div>
+    </section>
+}
+
+
+<!-- Gallery section-->
+@if (Model.siteSettings.ShowGallery)
+{
+    <section id="gallery" class="container py-5" dir="ltr">
+        <h2 class="text-center mb-5 fw-bold">
+            @Model.GalleryImagesTitle
+        </h2>
+        <div id="carouselGallery" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @{
+                    var index = 0;
+                    var chunkSize = 3;
+                    for (int i = 0; i < Model.GalleryImages.Count; i += chunkSize)
+                    {
+                        <div class="carousel-item @(index == 0 ? "active" : "")">
+                            <div class="row justify-content-center">
+                                @for (int j = i; j < i + chunkSize && j < Model.GalleryImages.Count; j++)
+                                {
+                                    <div class="col-md-4">
+
+                                        <img src="@Model.GalleryImages[j].ImagePath" class="gallery-image d-block w-100 rounded mb-3" style="height:300px" alt="@Model.GalleryImages[j].Alt" onclick="openGalleryModal(@j)">
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        index++;
+                    }
+                }
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselGallery" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselGallery" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <!-- Modal for Full-Screen Image View -->
+        <div id="galleryModal" class="modal fade" tabindex="-1" aria-labelledby="galleryModalLabel" aria-hidden="true" dir="ltr">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content bg-dark text-white border-0">
+                    <div class="modal-header border-0">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center position-relative">
+                        <button class="btn btn-dark position-absolute top-50 start-0 translate-middle-y" onclick="changeGalleryImage(-1)">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </button>
+                        <img id="galleryModalImage" class="img-fluid rounded" alt="Gallery Image" style="height:500px;">
+                        <button class="btn btn-dark position-absolute top-50 end-0 translate-middle-y" onclick="changeGalleryImage(1)">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+}
+
+
+<!-- About Us Section with Centered Content -->
+<section id="about-us" class="container py-5 text-center col-12 ">
+    <h2 class="mb-5">@Model.AboutUsTitle</h2>
+    <hr />
+    @foreach (var translation in Model.AboutUs.Translations.Where(t => t.Language == Model.CurrentCulture))
+    {
+        <p class="mx-auto" style="max-width: 600px;align-items:center">
+            <strong>@translation.Title</strong>
+        </p>
+            @Html.Raw(translation.Description)
+       
+    }
+</section>
+
+
+
+@if (Model.siteSettings.ShowContactUs)
+{
+    <section id="contact-us" class="container text-light py-5 d-flex flex-column align-items-center">
+        <div class="row w-100 justify-content-center">
+            <div class="col-lg-6">
+                <h2 class="mb-4 text-center">@Model.ContactUsTitle</h2>
+                <form method="post" class="contact-form">
+                    <div class="mb-4 position-relative">
+                        <i class="fa fa-user icon"></i>
+                        <input asp-for="Name" type="text" class="form-control" placeholder="@Model.NameTitle">
+                    </div>
+                    <div class="mb-4 position-relative">
+                        <i class="fa fa-envelope icon"></i>
+                        <input type="email" asp-for="Email" class="form-control" placeholder="@Model.EmailTitle">
+                    </div>
+                    <div class="mb-4 position-relative">
+                        <i class="fa fa-comment icon"></i>
+                        <textarea class="form-control" asp-for="Message" rows="6" style="height:100px !important" placeholder="@Model.MessageTitle"></textarea>
+                    </div>
+
+                    <!-- فیلد مخفی برای reCAPTCHA -->
+                    <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response" />
+
+                    <!-- دکمه ارسال -->
+                    <button type="submit" class="btn btn-outline-info btn-lg w-100 submit-button">@Model.SendTitle</button>
+                </form>
+            </div>
+        </div>
+
+
+
+     
+    </section>
+
+
+}
+
+
+
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-column">
+
+            <ul>
+                @foreach (var item in Model.Footers.Where(f => f.Position == position.Right))
+                {
+                    <li><a href="@item.Link" target="_blank">@item.Title</a></li>
+                }
+
+            </ul>
+        </div>
+        <div class="footer-column">
+            <ul>
+                @foreach (var item in Model.Footers.Where(f => f.Position == position.center))
+                {
+
+
+                    <li><a href="@item.Link" target="_blank">@item.Title</a></li>
+                }
+
+            </ul>
+        </div>
+        <div class="footer-column">
+            <ul>
+                @foreach (var item in Model.Footers.Where(f => f.Position == position.Left))
+                {
+
+
+                    <li><a href="@item.Link" target="_blank">@item.Title</a></li>
+                }
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2024  All rights reserved.</p>
+    </div>
+</footer>
+
+
+

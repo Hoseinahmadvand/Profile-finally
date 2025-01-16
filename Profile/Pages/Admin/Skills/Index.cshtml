@@ -1,0 +1,140 @@
+﻿@page
+@model IndexModel
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Manage Skills";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="fw-bold m-0 text-light">Manage Skills</h3>
+    <a asp-page="./Create" class="btn btn-success btn-lg shadow-sm py-2 px-4">
+        <i class="bi bi-plus-circle me-2"></i>Add New Skill
+    </a>
+</div>
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card bg-dark text-light shadow-lg">
+        <div class="card-header text-center border-0">
+            <h3 class="fw-bold">Skills</h3>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-dark table-bordered text-center align-middle">
+                    <thead>
+                        <tr>
+                            <th>Skill</th>
+                            <th>Percent</th>
+                            <th>Language</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var skillGroup in Model.Skills)
+                        {
+                            <tr>
+                                <td>@skillGroup.Title</td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-info text-dark fw-bold" role="progressbar" style="width: @skillGroup.Persent%" aria-valuenow="@skillGroup.Persent" aria-valuemin="0" aria-valuemax="100">
+                                            @skillGroup.Persent%
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><img src="/@(skillGroup.lang).svg" class="flag-icon" style="width: 20px; height: 20px;" /></td>
+                                <td>
+                                    <a asp-page="./Edit" asp-route-id="@skillGroup.Id" class="btn btn-outline-primary btn-sm shadow-sm">
+                                        <i class="bi bi-pencil-square me-1"></i>Edit
+                                    </a>
+                                    <button class="btn btn-outline-danger btn-sm shadow-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="setDeleteId(@skillGroup.Id)">
+                                        <i class="bi bi-trash me-1"></i>Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark text-light">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="deleteModalLabel">Delete Skill</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this skill?
+            </div>
+            <div class="modal-footer border-0">
+                <form method="post" asp-page-handler="Delete">
+                    <input type="hidden" name="id" id="deleteId" />
+                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function setDeleteId(id) {
+            document.getElementById('deleteId').value = id;
+        }
+    </script>
+}
+
+<style>
+    body {
+        background-color: #121212;
+        color: #ffffff;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-header {
+        background-color: #343a40;
+        border-bottom: 2px solid #495057;
+    }
+
+    .btn-outline-primary, .btn-outline-danger, .btn-outline-success {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .btn-outline-primary:hover {
+            background-color: #0d6efd;
+            color: #ffffff;
+        }
+
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            color: #ffffff;
+        }
+
+        .btn-outline-success:hover {
+            background-color: #28a745;
+            color: #ffffff;
+        }
+
+    .progress {
+        background-color: #2d2d2d;
+        border-radius: 10px;
+        height: 1.5rem;
+    }
+
+    .progress-bar {
+        font-size: 0.9rem;
+        line-height: 1.5rem;
+        border-radius: 10px;
+    }
+
+    .table th, .table td {
+        vertical-align: middle;
+    }
+</style>

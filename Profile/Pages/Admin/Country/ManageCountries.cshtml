@@ -1,0 +1,36 @@
+﻿@page
+@model ManageCountriesModel
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Manage Blocked Countries";
+}
+
+<h1>Manage Blocked Countries</h1>
+<table>
+    <thead>
+        <tr>
+            <th>IP Address</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ip in Model.BlockedIps)
+        {
+            <tr>
+                <td>@ip.IpAddress</td>
+                <td>
+                    <form method="post" asp-page-handler="Remove">
+                        <input type="hidden" name="id" value="@ip.Id" />
+                        <button type="submit">Remove</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Add New IP</h2>
+<form method="post" asp-page-handler="Add">
+    <input type="text" name="NewIpAddress" placeholder="Enter IP Address" required />
+    <button type="submit">Add</button>
+</form>

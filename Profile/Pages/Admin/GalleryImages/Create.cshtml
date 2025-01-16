@@ -1,0 +1,70 @@
+﻿@page
+@model CreateModel
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Add New Gallery Image";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card bg-dark text-light shadow-lg">
+        <div class="card-header text-center border-0">
+            <h3 class="fw-bold">Add New Gallery Image</h3>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-group mb-3">
+                    <label class="form-label" asp-for="ImageFile">Upload Image</label>
+                    <input type="file" asp-for="ImageFile" class="form-control" required accept="image/*" />
+                    <small style="color: red">@TempData["ErrorMessage"]</small>
+                </div>
+                <div class="form-group mb-3">
+                    <label class="form-label">Select Language</label>
+                    <select asp-for="lang" class="form-control">
+                        
+                        <option value="1">Persian</option>
+                        <option value="2">Arabic</option>
+                        <option value="3">German</option>
+                    </select>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-outline-success btn-lg shadow-sm">
+                        <i class="bi bi-save me-2"></i>Save
+                    </button>
+                    <a asp-page="./Index" class="btn btn-outline-light btn-lg shadow-sm">
+                        <i class="bi bi-arrow-left me-2"></i>Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #121212;
+        color: #ffffff;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-header {
+        background-color: #343a40;
+        border-bottom: 2px solid #495057;
+    }
+
+    .btn-outline-success, .btn-outline-light {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .btn-outline-success:hover {
+            background-color: #28a745;
+            color: #ffffff;
+        }
+
+        .btn-outline-light:hover {
+            background-color: #ffffff;
+            color: #121212;
+        }
+</style>

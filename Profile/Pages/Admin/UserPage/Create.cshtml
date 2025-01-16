@@ -1,0 +1,30 @@
+﻿@page
+@model Profile.Pages.Admin.UserPage.CreateModel
+@{
+    ViewData["Title"] = "Create New Admin";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg bg-dark text-light">
+        <div class="card-header">
+            <h4>Create New Admin</h4>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" id="username" asp-for="UserName" class="form-control" placeholder="Enter username" required />
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" asp-for="Password" class="form-control" placeholder="Enter password" required />
+                </div>
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" id="confirmPassword" asp-for="ConfirmPasswors" class="form-control" placeholder="Confirm password" required />
+                </div>
+                <button type="submit" class="btn btn-success">Create</button>
+            </form>
+        </div>
+    </div>
+</div>
