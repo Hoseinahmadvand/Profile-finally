@@ -411,7 +411,6 @@
 
 
         function showProjectDetails(title, description, imageName) {
-            // پیدا کردن مودال و عناصر داخلی آن
             const modal = document.getElementById("projectDetailsModal");
             const modalTitle = document.getElementById("projectModalTitle");
             const modalDescription = document.getElementById("projectModalDescription");
@@ -419,26 +418,27 @@
 
             // پر کردن اطلاعات مودال
             modalTitle.textContent = title;
-            modalDescription.textContent = description;
+            modalDescription.innerHTML = description; // استفاده از innerHTML برای متن‌های قالب‌بندی‌شده
             modalImage.src = imageName;
 
             // نمایش مودال
             modal.style.display = "block";
+
+            // انتقال تمرکز به مودال
+            modal.setAttribute("aria-hidden", "false");
+            modal.focus();
         }
 
         function closeProjectModal() {
-            // بستن مودال
             const modal = document.getElementById("projectDetailsModal");
+
+            // بستن مودال
             modal.style.display = "none";
+
+            // بازگرداندن تمرکز به عنصر قبلی
+            modal.setAttribute("aria-hidden", "true");
         }
 
-        // بستن مودال هنگام کلیک خارج از آن
-        window.onclick = function (event) {
-            const modal = document.getElementById("projectDetailsModal");
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-        };
 
 
 

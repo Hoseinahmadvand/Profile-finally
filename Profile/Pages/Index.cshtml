@@ -256,15 +256,15 @@
                 <form method="post" class="contact-form">
                     <div class="mb-4 position-relative">
                         <i class="fa fa-user icon"></i>
-                        <input asp-for="Name" type="text" class="form-control" placeholder="@Model.NameTitle">
+                        <input asp-for="Name" type="text" class="form-control" placeholder="@Model.NameTitle" required>
                     </div>
                     <div class="mb-4 position-relative">
                         <i class="fa fa-envelope icon"></i>
-                        <input type="email" asp-for="Email" class="form-control" placeholder="@Model.EmailTitle">
+                        <input type="email" asp-for="Email" class="form-control" placeholder="@Model.EmailTitle" required>
                     </div>
                     <div class="mb-4 position-relative">
                         <i class="fa fa-comment icon"></i>
-                        <textarea class="form-control" asp-for="Message" rows="6" style="height:100px !important" placeholder="@Model.MessageTitle"></textarea>
+                        <textarea class="form-control" asp-for="Message"  style="height:100px !important" placeholder="@Model.MessageTitle" required></textarea>
                     </div>
 
                     <!-- فیلد مخفی برای reCAPTCHA -->
