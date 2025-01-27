@@ -39,8 +39,15 @@
             color: white;
         }
 
-        .cke_notifications_area{
-            display:none;
+        .cke_notifications_area {
+            display: none;
+        }
+
+        .cke_dialog_ui_vbox_child{
+            padding:20px 0px !important;
+        }
+        .cke_dialog_ui_input_file{
+            height:100px !important;
         }
     </style>
 
@@ -79,7 +86,7 @@
     <div class="container-scroller">
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
             <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-                 <a class="sidebar-brand brand-logo" href="index.html"><img src="/@siteSettings.LogoPath" alt="logo" href="60"></a>
+                <a class="sidebar-brand brand-logo" href="index.html"><img src="/@siteSettings.LogoPath" alt="logo" href="60"></a>
                 <a class="sidebar-brand brand-logo-mini" href="index.html"><img src="/@siteSettings.LogoPath alt="logo"></a>
             </div>
 
@@ -100,7 +107,7 @@
                     </div>
                 </li>
                 <!-- Menu Items -->
-                <li class="nav-item" >
+                <li class="nav-item">
                     <a class="nav-link d-flex align-items-center p-3" asp-page="/Admin/Common/index">
                         <i class="mdi mdi-speedometer menu-icon me-3 text-primary"></i>
                         <span>Dashboard</span>
@@ -112,12 +119,12 @@
                         <span>Settings</span>
                     </a>
                 </li>
-            @*     <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center p-3" asp-page="/Admin/ConnectUs/Index">
-                        <i class="mdi mdi-email menu-icon me-3 text-info"></i>
-                        <span>Contact Us</span>
-                    </a>
-                </li> *@
+                    <li class="nav-item">
+                <a class="nav-link d-flex align-items-center p-3" asp-page="/Admin/ConnectUs/Index">
+                <i class="mdi mdi-email menu-icon me-3 text-info"></i>
+                <span>Contact Us</span>
+                </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link d-flex align-items-center p-3" asp-page="/Admin/Videos/index">
                         <i class="mdi mdi-playlist-play menu-icon me-3 text-success"></i>
@@ -210,7 +217,7 @@
             }
 
 
-       
+
 
 
             <!-- partial -->
@@ -248,79 +255,99 @@
     <script src="~/Admin/assets/js/todolist.js"></script>
     <script src="~/Admin/assets/js/dashboard.js"></script>
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>@* 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>@*
     <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script> *@
     <script src="~/ckeditor/ckeditor.js"></script>
     <script>
+      
         const editorConfig = {
-            removePlugins: 'uploadimage,uploadfile,about',
-            toolbar: [
-                     { name: 'document', items: ['Source', '-', 'Preview', 'Print'] }, // اضافه کردن پرینت
-        { name: 'clipboard', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'] },
-        { name: 'editing', items: ['Find', 'Replace', '-', 'SelectAll', '-', 'SpellChecker'] },
-        { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', 'RemoveFormat'] },
-         { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl'] }, // اضافه کردن دکمه‌های راست‌چین و چپ‌چین
-      { name: 'links', items: ['Link', 'Unlink', 'Anchor'] }, // اضافه کردن لینک‌ها
-        { name: 'insert', items: ['Table', 'HorizontalRule', 'SpecialChar', 'Iframe'] }, // اضافه کردن Iframe
-        { name: 'styles', items: ['Styles', 'Format', 'Font', 'FontSize'] },
-        { name: 'colors', items: ['TextColor', 'BGColor'] },
-        { name: 'tools', items: ['Maximize', 'ShowBlocks'] }, // اضافه کردن نمایش بلوک‌ها
-        { name: 'media', items: ['Embed'] } // اضافه کردن Embed برای ویدیوها
-    
-            ],
-            removeButtons: 'Image,Anchor,Flash,PageBreak',
-            autoGrow_minHeight: 200, // تنظیم ارتفاع خودکار
+            autoGrow_minHeight: 200,
             autoGrow_maxHeight: 600,
-            height: 300, // ارتفاع ثابت اولیهإ
-            resize_enabled: true, 
-            placeholder: 'Start typing here...'
-
+            height: 300,
+            resize_enabled: true,
+            placeholder: 'Start typing here...',
+            filebrowserUploadUrl: '/admin/api/FileUpload/Upload', // مسیر آپلود
+           // filebrowserUploadMethod: 'form',
         };
 
+        // مقداردهی CKEditor برای چند فیلد
         CKEDITOR.replace('Description', editorConfig);
-        CKEDITOR.replace('FarsiDescription');
-        CKEDITOR.replace('ArabicDescription');
-        CKEDITOR.replace('GermanDescription');
-        // CKEDITOR.replace('FarsiDescription',{  filebrowserUploadUrl: '/Admin/AboutUss/Edit?handler=UploadImage',filebrowserUploadMethod: 'form'});
-        // CKEDITOR.replace('ArabicDescription',{  filebrowserUploadUrl: '/Admin/AboutUss/Edit?handler=UploadImage',filebrowserUploadMethod: 'form'});
-        // CKEDITOR.replace('GermanDescription',{  filebrowserUploadUrl: '/Admin/AboutUss/Edit?handler=UploadImage',filebrowserUploadMethod: 'form'});
-       
+        CKEDITOR.replace('FarsiDescription', editorConfig);
+        CKEDITOR.replace('ArabicDescription', editorConfig);
+        CKEDITOR.replace('GermanDescription', editorConfig);
+        CKEDITOR.on('dialogDefinition', function (evt) {
+            const dialogName = evt.data.name;
+            const dialogDefinition = evt.data.definition;
 
+            if (dialogName === 'image') {
+                let uploadedImageUrl = ''; // ذخیره URL آپلود شده
 
+                // دریافت پاسخ آپلود و ذخیره URL
+                CKEDITOR.on('fileUploadResponse', function (evt) {
+                    evt.stop(); // جلوگیری از پردازش پیش‌فرض
+                    const response = evt.data.responseData;
+
+                    if (response.uploaded) {
+                        uploadedImageUrl = response.url; // ذخیره URL
+                        console.log('Uploaded Image URL:', uploadedImageUrl);
+                    } else {
+                        console.error('Upload Error:', response.error.message);
+                    }
+                });
+
+                // وقتی کاربر تب "Image Info" را باز می‌کند
+                const originalOnShow = dialogDefinition.onShow;
+                dialogDefinition.onShow = function () {
+                    const dialog = CKEDITOR.dialog.getCurrent();
+
+                    setTimeout(() => {
+                        if (uploadedImageUrl) {
+                            // تنظیم URL در فیلد txtUrl
+                            dialog.setValueOf('info', 'txtUrl', uploadedImageUrl);
+                            console.log('URL set in txtUrl field:', uploadedImageUrl);
+                            uploadedImageUrl = ''; // پاک کردن URL برای جلوگیری از تداخل
+                        }
+                    }, 100);
+
+                    if (originalOnShow) {
+                        originalOnShow.apply(this, arguments);
+                    }
+                };
+            }
+        });
     </script>
-
 
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const successMessage = "@TempData["SuccessMessage"]";
-        const errorMessage = "@TempData["ErrorMessage"]";
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const successMessage = "@TempData["SuccessMessage"]";
+            const errorMessage = "@TempData["ErrorMessage"]";
 
-        // نمایش پیام موفقیت
-        if (successMessage) {
-            toastr.success(successMessage, 'Success', {
-                timeOut: 5000,
-                closeButton: true,
-                progressBar: true,
-                positionClass: "toast-top-right"
-            });
-        }
+            // نمایش پیام موفقیت
+            if (successMessage) {
+                toastr.success(successMessage, 'Success', {
+                    timeOut: 5000,
+                    closeButton: true,
+                    progressBar: true,
+                    positionClass: "toast-top-right"
+                });
+            }
 
-        // نمایش پیام خطا
-        if (errorMessage) {
-            toastr.error(errorMessage, 'Error', {
-                timeOut: 5000,
-                closeButton: true,
-                progressBar: true,
-                positionClass: "toast-top-right"
-            });
-        }
-    });
-</script>
+            // نمایش پیام خطا
+            if (errorMessage) {
+                toastr.error(errorMessage, 'Error', {
+                    timeOut: 5000,
+                    closeButton: true,
+                    progressBar: true,
+                    positionClass: "toast-top-right"
+                });
+            }
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

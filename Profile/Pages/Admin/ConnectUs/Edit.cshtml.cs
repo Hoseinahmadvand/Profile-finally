@@ -83,9 +83,9 @@ namespace Profile.Pages.Admin.ConnectUs
             contactUs.Email = Email;
             contactUs.Phone = Phone;
 
-            UpdateOrAddTranslation(contactUs, "fa", "FarsiDescription");
-            UpdateOrAddTranslation(contactUs, "ar", "ArabicDescription");
-            UpdateOrAddTranslation(contactUs, "de", "GermanDescription");
+            UpdateOrAddTranslation(contactUs, "fa", FarsiDescription);
+            UpdateOrAddTranslation(contactUs, "ar", ArabicDescription);
+            UpdateOrAddTranslation(contactUs, "de", GermanDescription);
 
             await _contactUsService.UpdateAsync(contactUs);
 
