@@ -21,9 +21,9 @@
                   
                     <p><strong>Email:</strong> @Model.ContactInfo.Email</p>
                     <p><strong>Phone:</strong> @Model.ContactInfo.Phone</p>
-                    <p><img src="/fa.svg" class="flag-icon" /> @Model.FarsiDescription</p>
-                    <p><img src="/ar.svg" class="flag-icon" /> @Model.ArabicDescription</p>
-                    <p><img src="/de.svg" class="flag-icon" /> @Model.GermanDescription</p>
+                    <p><img src="/fa.svg" class="flag-icon" /> @Html.Raw(Model.FarsiDescription)</p>
+                    <p><img src="/ar.svg" class="flag-icon" /> @Html.Raw(Model.ArabicDescription)</p>
+                    <p><img src="/de.svg" class="flag-icon" /> @Html.Raw(Model.GermanDescription)</p>
                 </div>
             </div>
 
